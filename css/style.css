@@ -70,4 +70,8 @@ p {
   }
 }
 
+div {
+  width: calc(50% - 20px);
+}
+
 /*# sourceMappingURL=style.css.map */

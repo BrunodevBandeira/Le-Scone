@@ -5,14 +5,18 @@ $large-device: 1200px;
 $medium-device: 760px;
 $small-device: 480px;
 
-//Box-sizing
 
+
+
+// ===> Box-sizing <===
 *, *::after, *::before {
     box-sizing: border-box;
 }
 
-// Mixins de media querie
 
+
+
+// ===> Mixins de media querie <===
 @mixin device($size) {
     @if $size == large {
         @media screen and (min-width: #{$large-device}) {
@@ -42,3 +46,55 @@ p {
         color: aqua;
     }
 }
+
+
+
+
+
+
+
+// ===> Função do grid <=== 
+@function grid($col, $offset: false) {
+    $width: $col / $cols * 100 + "%";
+    $result: calc(#{$width} - #{$gutter});
+    @if $offset == offset {
+        $gutter: $gutter / 2;
+        $result: calc(#{$width} + #{$gutter});
+    }
+    @return $result;
+}  
+
+
+
+// Gerar as Classes de grid
+@for $index from 1 through $cols {
+    .grid-#{$index} {
+        width: grid($index);
+    }
+}
+
+
+
+// Mixin estrutura do grid
+@mixin grid-structure {
+    float: left;
+    min-height: 1px;
+    margin-left: $gutter / 2;
+    margin-right: $gutter / 2;
+    @include device(small) {
+        width: 100%;
+        float: none;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+
+[class^="grid-"] {
+    @include grid-structure;
+}
+
+
+
+//12:52
+
