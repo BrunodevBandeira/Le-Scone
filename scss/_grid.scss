@@ -96,5 +96,57 @@ p {
 
 
 
-//12:52
+// Gera as classes de offset
+@for $i from 1 through $cols {
+    .offset-#{$i} {
+        margin-left: grid($i, offset);
+        @extend %offset;
+    }
+}
+
+
+@include device(small) {
+    %offset {
+        margin-left: 0px;
+    }
+}
+
+
+
+// Mixin de clear fix
+@mixin clearfix {
+    &::after, &::before {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+@mixin container {
+    max-width: $large-device;
+    margin: 0px auto;
+    position: relative;
+    @include device(medium) {
+        max-width: $medium-device;
+    }
+    @include device(small) {
+        max-width: $small-device;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    @include clearfix;
+}
+
+.container {
+    @include container;
+}
+
+
+
+
+
+
+
+
 
